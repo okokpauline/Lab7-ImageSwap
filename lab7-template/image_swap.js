@@ -5,22 +5,21 @@ const fadeOutImageCallback = (link) => {
 	// change text caption
 	// change attribute for the src
 	// jquery fadeOut and jquery fadein
-
-	console.log('link in fadeOutImageCallback', link);
-	console.log('link.title in fadeOutImageCallback', link.title);
-	console.log('link.src in fadeOutImageCallback', link.children[0].src);
 	const caption = $("#caption");
 	caption.text(link.title);
-	caption.fadeIn(1000);
-	
 	const image = $("#image");
-	image.src = link.children[0].src
+	$("#image_list a").each( (index, imageListLink) => {
+		if (link.title === imageListLink.title) {
+			image.attr('src', `images/h${index + 1}.jpg`)
+		}
+	});
+
+	caption.fadeIn(1000);
 	image.fadeIn(1000);
 };
 
 const handleImageSwap = evt => {
 	const link = evt.currentTarget;
-	console.log('link in handleImageSwap', link);
 	// TODO: handle image swap
 	$("#caption").fadeOut(1000);
 	$("#image").fadeOut(1000, () => fadeOutImageCallback(link)) //callback function to swap the image
